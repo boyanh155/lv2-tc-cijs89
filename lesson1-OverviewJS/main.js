@@ -69,16 +69,17 @@
 //     return current + prevValue
 // }, 0)
 
-// const cart = [
-//     { name: 'p1', price: 10, quantity: 2, category: 'A' },
-//     { name: 'p2', price: 30, quantity: 1, category: 'B' },
-//     { name: 'p3', price: 15, quantity: 4, category: 'A' },
-// ]
+const cart = [
+    { name: 'p1', price: 10, quantity: 2, category: 'A' },
+    { name: 'p2', price: 30, quantity: 1, category: 'B' },
+    { name: 'p3', price: 15, quantity: 4, category: 'A' },
+]
 
 // Ex1:
 // 1. Total price
 // 2. Total quantity
-// 3. Total price of product with category A
+// 3. Total price of products with category A
+// - check whether category is A or not ? total = total + value.price : total
 // 4. Total category types
 // 5. Add one more boolean field isVoucher that have true for category A and false for category B
 
