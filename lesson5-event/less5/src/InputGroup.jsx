@@ -3,6 +3,7 @@ const InputGroup = ({ setData, data }) => {
   const [inputValue, setInputValue] = useState("");
   const inputChangeHandler = (e) => {
     setInputValue(e.target.value);
+    // filter o day
   };
   const addBtClickHandler = () => {
     if (inputValue === "") return;
@@ -10,13 +11,14 @@ const InputGroup = ({ setData, data }) => {
         ...prev,
         {
             name: inputValue,
+            active:true,
         },
     ]);
     setInputValue("");
   };
   return (
     <div>
-      <input value={inputValue} onChange={inputChangeHandler} />
+      <input value={inputValue}  onChange={inputChangeHandler} />
       <button onClick={addBtClickHandler}>Add</button>
     </div>
   );
