@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ApiStateContext } from "./contexts/ApiStateProvider";
 
-const List = ({ data, setData }) => {
-  
+const List = ({ data, setData, getTodo }) => {
   const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useContext(ApiStateContext);
 
-  const deleteBtClickHandler = (index) => {
-    const newData = [...data];
-    const newNewData = newData.filter((v, _index) => {
-      if (index === _index) {
-        return false;
-      } else {
-        return true;
+  const deleteTodo = async (id) => {
+    setLoading(true)
+    const result = await fetch(
+      `https://654f7637358230d8f0cd577c.mockapi.io/todo/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       }
-    });
-    setData(newNewData);
+    );
+    setLoading(false)
+    return result.status;
+  };
+  const deleteBtClickHandler = async (id) => {
+    const status = await deleteTodo(id);
+    if (status === 200) {
+      getTodo();
+    }
   };
   const unActiveBtClickHandler = (index) => {
     const newData = [...data];
@@ -31,7 +42,12 @@ const List = ({ data, setData }) => {
     setData([...newNewData]);
   };
   return (
-    <>
+    <div
+      style={{
+        width: "1200px",
+        margin: "0 auto",
+      }}
+    >
       <input
         value={inputValue}
         placeholder="Nhap tim kiem"
@@ -39,18 +55,34 @@ const List = ({ data, setData }) => {
           setInputValue(e.target.value);
         }}
       />
-      <ul>
+      <ul
+        style={{
+          display: "flex",
+          gap: "20px",
+          flexWrap: "wrap",
+        }}
+      >
         {data.map((_value, index) => {
           return (
-            <li key={index}>
-              <span
+            <li
+              key={index}
+              style={{
+                border: "1px solid #cccccc",
+                flexBasis: "200px",
+                padding: "1.6rem",
+                textDecoration: "none",
+                listStyle: "none",
+              }}
+            >
+              <div
                 style={{
                   textDecoration: !_value.active ? "line-through" : "",
                 }}
               >
                 {_value.name}
-              </span>
-              <button onClick={() => deleteBtClickHandler(index)}>X</button>
+              </div>
+              <div>user:{_value.username}</div>
+              <button onClick={() => deleteBtClickHandler(_value.id)}>X</button>
               <button onClick={() => unActiveBtClickHandler(index)}>
                 Un active
               </button>
@@ -58,7 +90,7 @@ const List = ({ data, setData }) => {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 
