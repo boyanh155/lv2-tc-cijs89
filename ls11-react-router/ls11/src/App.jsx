@@ -1,5 +1,5 @@
 import "./App.css";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import NavBar from "./components/NavBar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
@@ -7,6 +7,7 @@ import Product from "./pages/Product";
 import Favorites from "./pages/Favorites";
 import ProductDetail from "./pages/ProductDetail";
 import InputSearchProduct from "./components/InputSearchProduct";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -23,7 +24,12 @@ function App() {
       </Routes>
 
       {/* Static */}
-      <NavBar />
+      <Stack style={{
+        marginTop:'2rem'
+      }} direction="row" justifyContent='center'>
+        <NavBar />
+        <Cart />
+      </Stack>
     </>
   );
 }

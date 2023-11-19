@@ -7,6 +7,7 @@ const NavBar = () => {
   const [current, setCurrent] = useState("");
   const navigate = useNavigate();
   return (
+  
     <BottomNavigation
       showLabels
       value={current}
